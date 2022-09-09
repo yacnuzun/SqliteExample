@@ -25,9 +25,9 @@ namespace Business.Concrete
             return new SuccessResult("Ürün Eklendi.");
         }
 
-        public IResult Delete(Product product)
+        public IResult Delete(int id)
         {
-            _productDal.Delete(product);
+            _productDal.Delete(new Product { Id = id});
             return new SuccessResult("Ürün Eklendi.");
         }
 

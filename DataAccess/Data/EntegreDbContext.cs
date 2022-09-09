@@ -12,16 +12,15 @@ namespace DataAccess.Concrete.DatabaseContext
 {
     public class EntegraDbContext:DbContext
     {
-        public EntegraDbContext()
-        {
-        }
-        public EntegraDbContext(DbContextOptions<EntegraDbContext> options) : base(options)
-        {
-        }
-
-
-
         public DbSet<Product> Products { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(@"Data Source=c:\Users\yacnu\sqlitedb\entegra.db;");
+        }
+
+
+
+        
 
         
     }

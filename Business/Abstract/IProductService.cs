@@ -10,11 +10,11 @@ namespace Business.Abstract
 {
     public interface IProductService
     {
-        IDataResult<List<Product>> GetAll();
+        IDataResult<List<Product>> GetAll();//Idata result ne la 
         IDataResult<Product> Get(int id);
         IResult Add(Product product);
         IResult Update(Product product);
-        IResult Delete(Product product);
+        IResult Delete(int id);
 
     }
 }

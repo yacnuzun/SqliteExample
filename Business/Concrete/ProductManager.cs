@@ -27,19 +27,23 @@ namespace Business.Concrete
 
         public IResult Delete(int id)
         {
-            _productDal.Delete(new Product { Id = id});
-            return new SuccessResult("Ürün Eklendi.");
+
+            var result = _productDal.Delete(new Product { Id = id });
+            if (result)
+                return new SuccessResult("Ürün Eklendi.");
+            return new ErrorResult("Bir şey oldu :(");
+
         }
 
         public IDataResult<Product> Get(int id)
         {
             var result = _productDal.Get(p => p.Id == id);
-            return new SuccessDataResult<Product>(result,"Ürün Listelendi.");
+            return new SuccessDataResult<Product>(result, "Ürün Listelendi.");
         }
 
         public IDataResult<List<Product>> GetAll()
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),"Ürünler Listelendi.");
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), "Ürünler Listelendi.");
         }
 
 

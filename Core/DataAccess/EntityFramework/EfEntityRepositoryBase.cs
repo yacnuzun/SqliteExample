@@ -15,7 +15,7 @@ namespace DataAccess.DataAccess.EntityFramework
     {
         public void Add(TEntity entity)
         {
-            using (Tcontext context=new Tcontext())
+            using (Tcontext context = new Tcontext())
             {
                 var entityAdded = context.Entry(entity);
                 entityAdded.State = EntityState.Added;
@@ -23,21 +23,29 @@ namespace DataAccess.DataAccess.EntityFramework
             }
         }
 
-        public void Delete(TEntity entity)
+        public bool Delete(TEntity entity)
         {
-            
+            try
+            {
                 using (Tcontext context = new Tcontext())
                 {
                     var entityAdded = context.Entry(entity);
                     entityAdded.State = EntityState.Deleted;
                     context.SaveChanges();
+                    return true;
                 }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             
+
         }
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
-            using (Tcontext context=new Tcontext())
+            using (Tcontext context = new Tcontext())
             {
                 return context.Set<TEntity>().SingleOrDefault(filter);
             }
@@ -45,7 +53,7 @@ namespace DataAccess.DataAccess.EntityFramework
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
-            using (Tcontext context=new Tcontext())
+            using (Tcontext context = new Tcontext())
             {
                 return filter == null ? context.Set<TEntity>().ToList() : context.Set<TEntity>().Where(filter).ToList();
             }
@@ -53,14 +61,14 @@ namespace DataAccess.DataAccess.EntityFramework
 
         public void Update(TEntity entity)
         {
-            
-                using (Tcontext context = new Tcontext())
-                {
-                    var entityAdded = context.Entry(entity);
-                    entityAdded.State = EntityState.Modified;
-                    context.SaveChanges();
-                }
-            
+
+            using (Tcontext context = new Tcontext())
+            {
+                var entityAdded = context.Entry(entity);
+                entityAdded.State = EntityState.Modified;
+                context.SaveChanges();
+            }
+
         }
     }
 }
